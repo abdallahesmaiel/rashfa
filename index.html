@@ -68,51 +68,32 @@
             background-size: 200px 200px, 250px 250px, 180px 180px, 220px 220px, 280px 280px;
         }
 
+        /* ===== شريط علوي: مستقيم كامل مع إطار دائري حول الشعار فقط ===== */
         .top-bar {
-            background: rgba(255, 255, 255, 0.92);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(74, 44, 23, 0.1);
-            padding: 10px 20px;
             position: sticky;
             top: 0;
             z-index: 100;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(74, 44, 23, 0.1);
             box-shadow: 0 2px 20px rgba(26, 15, 7, 0.06);
         }
 
         .top-container {
+            width: 100%;
             max-width: 1200px;
-            margin: 0 auto;
             display: flex;
             align-items: center;
-            gap: 14px;
-            flex-wrap: wrap;
             justify-content: space-between;
+            padding: 0 20px;
+            height: 100%;
+            position: relative;
         }
-
-        .logo-area {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            cursor: pointer;
-            text-decoration: none;
-        }
-
-        .logo-img {
-            width: 50px; height: 50px;
-            background: var(--coffee-foam);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 28px;
-            border: 2px solid var(--gold);
-            overflow: hidden;
-            flex-shrink: 0;
-            box-shadow: 0 2px 8px rgba(201, 169, 110, 0.2);
-        }
-
-        .logo-img img { width: 100%; height: 100%; object-fit: cover; }
 
         .brand-name {
             display: flex;
@@ -121,26 +102,73 @@
         }
 
         .brand-name .main {
-            font-size: 26px;
+            font-size: 22px;
             font-weight: 900;
             color: var(--coffee-dark);
         }
 
         .brand-name .sub {
-            font-size: 10px;
+            font-size: 9px;
             font-weight: 600;
             color: var(--coffee-medium);
             letter-spacing: 2px;
         }
 
+        /* الإطار الدائري الخلفي حول الشعار - مثل stroke */
+        .logo-ring {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 68px;
+            height: 68px;
+            border-radius: 50%;
+            border: 10px solid var(--white);
+            background: transparent;
+            box-shadow: 0 0 0 15px rgba(255, 255, 255, 0.95);
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .logo-area {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            cursor: pointer;
+            text-decoration: none;
+            z-index: 5;
+        }
+
+        .logo-img {
+            width: 56px; 
+            height: 56px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            border: 3px solid var(--gold);
+            overflow: hidden;
+            flex-shrink: 0;
+            box-shadow: 0 4px 15px rgba(201, 169, 110, 0.4);
+        }
+
+        .logo-img img { width: 100%; height: 100%; object-fit: cover; }
+
         .whatsapp-link {
             color: #25D366;
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 600;
             text-decoration: none;
             display: flex;
             align-items: center;
             gap: 4px;
+            white-space: nowrap;
+            background: rgba(37, 211, 102, 0.1);
+            padding: 6px 12px;
+            border-radius: 20px;
         }
 
         .main-content {
@@ -650,8 +678,9 @@
             .product-name { font-size: 17px; }
             .price { font-size: 20px; }
             .add-btn { padding: 8px 16px; font-size: 13px; }
-            .brand-name .main { font-size: 22px; }
-            .logo-img { width: 44px; height: 44px; font-size: 24px; }
+            .brand-name .main { font-size: 18px; }
+            .logo-img { width: 48px; height: 48px; font-size: 24px; }
+            .logo-ring { width: 58px; height: 58px; }
         }
 
         @media (max-width: 600px) {
@@ -666,7 +695,11 @@
             .add-btn { padding: 8px 12px; font-size: 12px; }
             .cart-item { padding: 10px; gap: 10px; }
             .cart-img { width: 50px; height: 50px; }
-            .top-container { flex-direction: column; gap: 8px; }
+            .brand-name .main { font-size: 16px; }
+            .brand-name .sub { font-size: 7px; }
+            .whatsapp-link { font-size: 10px; padding: 4px 8px; }
+            .logo-img { width: 44px; height: 44px; }
+            .logo-ring { width: 54px; height: 54px; }
         }
 
         @media (max-width: 400px) {
@@ -771,13 +804,16 @@
 
     <header class="top-bar">
         <div class="top-container">
+            <div class="brand-name">
+                <span class="main">رشفة</span>
+                <span class="sub">Rashfa Coffee</span>
+            </div>
+            
+            <div class="logo-ring"></div>
             <div class="logo-area" onclick="navigateTo('home')">
                 <div class="logo-img" id="logoDisplay">☕</div>
-                <div class="brand-name">
-                    <span class="main">رشفة</span>
-                    <span class="sub">Rashfa Coffee</span>
-                </div>
             </div>
+            
             <a class="whatsapp-link" href="https://wa.me/201126101152" target="_blank" rel="noopener">
                 <i class="fab fa-whatsapp"></i> 01126101152
             </a>
@@ -863,35 +899,25 @@
         const app = initializeApp(firebaseConfig);
         const database = getDatabase(app);
 
-        // ===== إعداد Cloudinary لعرض الصور فقط =====
         const CLOUDINARY_CLOUD_NAME = 'dzprjrvu7';
         
-        // دالة لتحسين رابط Cloudinary للعرض
         function optimizeCloudinaryUrl(url) {
             if (!url) return '';
-            
-            // إذا كان الرابط يحتوي على cloudinary
             if (url.includes('cloudinary.com')) {
-                // إضافة تحسينات تلقائية للجودة والتنسيق
                 if (url.includes('/upload/') && !url.includes('q_auto')) {
                     return url.replace('/upload/', '/upload/q_auto:good,f_auto/');
                 }
             }
-            
             return url;
         }
 
-        // دالة لإنشاء رابط مصغر من Cloudinary
         function getThumbnailUrl(url, width = 400) {
             if (!url) return '';
-            
             if (url.includes('cloudinary.com')) {
-                // استبدال أو إضافة تحسينات الحجم
                 if (url.includes('/upload/')) {
                     return url.replace('/upload/', `/upload/q_auto:good,f_auto,w_${width},c_limit/`);
                 }
             }
-            
             return url;
         }
 
@@ -900,7 +926,6 @@
         let activeOrders = [];
         let orderTimers = {};
 
-        // استعادة البيانات من localStorage
         const savedOrderIds = JSON.parse(localStorage.getItem('rashfa_active_order_ids') || '[]');
         const savedCart = localStorage.getItem('rashfa_temp_cart');
 
@@ -908,7 +933,6 @@
             try { cartItems = JSON.parse(savedCart); } catch (e) { cartItems = []; }
         }
 
-        // تحميل الطلبات النشطة
         if (savedOrderIds.length > 0) {
             savedOrderIds.forEach(oid => fetchOrderDetails(oid));
         }
@@ -1088,7 +1112,6 @@
                     const itemTotal = item.price * item.quantity;
                     total += itemTotal;
                     
-                    // تحسين رابط الصورة من Cloudinary
                     const optimizedImage = getThumbnailUrl(item.image, 150);
                     
                     html += `
@@ -1187,12 +1210,11 @@
                     showToast('⚠️ وصلت للحد الأقصى المتوفر', 'error');
                 }
             } else {
-                // تخزين رابط الصورة من Cloudinary في السلة
                 cartItems.push({
                     productId: product.id,
                     name: product.name,
                     price: product.price,
-                    image: product.image || '', // رابط Cloudinary
+                    image: product.image || '',
                     quantity: 1,
                     maxQty: product.quantity
                 });
@@ -1245,7 +1267,7 @@
                     name: it.name,
                     price: it.price,
                     quantity: it.quantity,
-                    image: it.image || '' // تخزين رابط Cloudinary
+                    image: it.image || ''
                 })),
                 total: totalPrice,
                 recipientName,
@@ -1288,15 +1310,12 @@
                     snap.forEach(child => {
                         const data = child.val();
                         
-                        // معالجة الصورة: استخدام رابط Cloudinary إذا كان موجوداً
                         let imageUrl = data.image || '';
                         
-                        // إذا كان المنتج يحتوي على public_id من Cloudinary، ننشئ الرابط
                         if (data.cloudinary_public_id && !imageUrl) {
                             imageUrl = `https://res.cloudinary.com/${CLOUDINARY_CLOUD_NAME}/image/upload/${data.cloudinary_public_id}`;
                         }
                         
-                        // تحسين الرابط إذا كان من Cloudinary
                         imageUrl = optimizeCloudinaryUrl(imageUrl);
                         
                         allProducts.push({ 
@@ -1306,9 +1325,7 @@
                         });
                     });
                 }
-                console.log(`📦 تم تحميل ${allProducts.length} منتج مع صور Cloudinary`);
                 
-                // تحديث روابط الصور في السلة
                 cartItems.forEach(item => {
                     const product = allProducts.find(p => p.id === item.productId);
                     if (product) {
@@ -1361,12 +1378,8 @@
             
             grid.innerHTML = filtered.map(p => {
                 const available = p.quantity > 0;
-                // استخدام رابط Cloudinary المحسن
                 const productImage = p.image || '';
-                // إنشاء نسخة مصغرة للتحميل السريع
                 const thumbnailUrl = getThumbnailUrl(productImage, 400);
-                
-                console.log(`🖼️ عرض منتج: ${p.name}, الصورة: ${thumbnailUrl}`);
                 
                 return `<div class="product-card">
                     <div class="product-img-wrap">
@@ -1390,8 +1403,6 @@
                     </div>
                 </div>`;
             }).join('');
-            
-            console.log(`✅ عرض ${filtered.length} منتج مع صور Cloudinary`);
         }
 
         function loadLogo() {
@@ -1401,18 +1412,14 @@
                     const logoData = snap.val();
                     let logoUrl = '';
                     
-                    // دعم الصور المخزنة كـ base64 (قديمة) أو روابط Cloudinary (جديدة)
                     if (logoData.url) {
-                        // رابط Cloudinary - نضيف تحسينات
                         logoUrl = getThumbnailUrl(logoData.url, 100);
                     } else if (logoData.base64) {
-                        // base64 قديم - نستخدمه كما هو
                         logoUrl = logoData.base64;
                     }
                     
                     if (logoUrl) {
                         logoDisplay.innerHTML = `<img src="${logoUrl}" alt="شعار رشفة" style="width:100%;height:100%;object-fit:cover;" loading="lazy">`;
-                        console.log('✅ تم تحميل الشعار من Cloudinary');
                     }
                 }
             });
@@ -1458,10 +1465,6 @@
         }
 
         function init() {
-            console.log('☕ بدء تشغيل متجر رشفة...');
-            console.log('☁️ الصور محملة من Cloudinary والبيانات من Firebase');
-            console.log(`📁 Cloud Name: ${CLOUDINARY_CLOUD_NAME}`);
-            
             loadProducts();
             loadLogo();
             updateCartBadge();
@@ -1477,8 +1480,6 @@
             window.changeItemQty = window.changeItemQty;
             window.removeItemFromCart = window.removeItemFromCart;
             window.clearCart = window.clearCart;
-
-            console.log('✅ متجر رشفة جاهز للاستخدام');
         }
 
         init();
